@@ -1,8 +1,12 @@
 import React from "react";
 import Head from "next/head";
 import Sidebar from "./Sidebar";
+import { useRouter } from "next/router";
 
 const Layout = ({ children }) => {
+  // hook de router
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -15,12 +19,20 @@ const Layout = ({ children }) => {
           referrerpolicy="no-referrer"
         />
       </Head>
-      <div className="bg-gray-200 min-h-screen">
-        <div className="flex xl:flex-row sm:flex-col min-h-screen">
-          <Sidebar />
-          <main className="sm:w-2/3 xl:w-4/5 sm:min-h-sreen p-5">{children}</main>
+      {router.pathname === "/login" || router.pathname === "/nuevacuenta" ? (
+        <div className="bg-gray-800 min-h-screen flex flex-col justify-center">
+          <div className="">{children}</div>
         </div>
-      </div>
+      ) : (
+        <div className="bg-gray-200 min-h-screen">
+          <div className="flex xl:flex-row sm:flex-col min-h-screen">
+            <Sidebar />
+            <main className="sm:w-2/3 xl:w-4/5 sm:min-h-sreen p-5">
+              {children}
+            </main>
+          </div>
+        </div>
+      )}
     </>
   );
 };
